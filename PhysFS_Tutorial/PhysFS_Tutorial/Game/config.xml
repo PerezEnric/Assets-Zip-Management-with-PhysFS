@@ -17,6 +17,10 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
+  
+  <file_manager>
+    <path>Assets.zip</path>
+    </file_manager>
 
   <map>
     <folder>maps/</folder>

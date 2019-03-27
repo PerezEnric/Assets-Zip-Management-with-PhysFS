@@ -33,7 +33,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp">
       <Filter>Pugi</Filter>
     </ClCompile>
-    <ClCompile Include="j1FileManager.cpp">
+    <ClCompile Include="j1AssetManager.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,7 +85,7 @@
     <ClInclude Include="PugiXml\src\pugixml.hpp">
       <Filter>Pugi</Filter>
     </ClInclude>
-    <ClInclude Include="j1FileManager.h">
+    <ClInclude Include="j1AssetManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
