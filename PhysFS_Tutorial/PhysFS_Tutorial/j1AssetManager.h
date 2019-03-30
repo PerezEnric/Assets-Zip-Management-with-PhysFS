@@ -15,7 +15,7 @@ public:
 	//// Called before quitting
 	//bool CleanUp();
 
-	//bool LoadPath(const char* zip_path, const char* mount_point);
+	
 };
 
 #endif
