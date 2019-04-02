@@ -13,6 +13,7 @@ j1AssetManager::j1AssetManager() : j1Module()
 
 	PHYSFS_init(nullptr);
 
+	CreatePath(".");
 }
 
 // Destructor
@@ -34,6 +35,11 @@ bool j1AssetManager::CreatePath(const char* zip_path, const char* mount_point)
 	return ret;
 }
 
+bool j1AssetManager::Exists(const char * file) const
+{
+	return PHYSFS_exists(file);
+}
+
 bool j1AssetManager::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Asset Manager");
@@ -48,7 +54,7 @@ bool j1AssetManager::Awake(pugi::xml_node& config)
 	return true;
 }
 
-uint j1AssetManager::LoadData(const char* file, char** buffer)
+uint j1AssetManager::LoadData(const char* file, char** buffer) const
 {
 	uint ret = 0;
 
@@ -73,5 +79,30 @@ uint j1AssetManager::LoadData(const char* file, char** buffer)
 		LOG("Error while opening file %s: %s\n", file, PHYSFS_getLastError());
 
 	return ret;
+}
+
+// And this is how you load an image from a memory buffer with SDL
+SDL_RWops* j1AssetManager::Load(const char* file) const
+{
+	char* buffer;
+	int size = LoadData(file, &buffer);
+
+	if (size > 0)
+	{
+		SDL_RWops* r = SDL_RWFromConstMem(buffer, size);
+		if (r != NULL)
+			r->close = close_sdl_rwops;
+
+		return r;
+	}
+	else
+		return NULL;
+}
+
+int close_sdl_rwops(SDL_RWops *rw)
+{
+	RELEASE_ARRAY(rw->hidden.mem.base);
+	SDL_FreeRW(rw);
+	return 0;
 }
 

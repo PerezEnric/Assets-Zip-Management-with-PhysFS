@@ -47,7 +47,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	// render last to swap buffer
 	AddModule(render);
 
-	scene->active = false;
 
 
 	PERF_PEEK(ptimer);
@@ -172,7 +171,12 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file, std::string na
 {
 	pugi::xml_node ret;
 
-	pugi::xml_parse_result result = config_file.load_file(name.data());
+	char* buf;
+
+	int size = App->asset_manager->LoadData("config.xml", &buf);
+	pugi::xml_parse_result result = config_file.load_buffer(buf, size);
+	RELEASE_ARRAY(buf);
+
 
 	if (result == NULL)
 		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());

@@ -35,6 +35,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool SpawnEntity(std::string file, iPoint position);
+
+	bool LoadImages(pugi::xml_node attributes);
 
 public:
 

@@ -3,7 +3,9 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1AssetManager.h"
 #include <list>
+#include <string>
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -31,7 +33,6 @@ bool j1Textures::Awake(pugi::xml_node& config)
 		LOG("Could not initialize Image lib. IMG_Init: %s", IMG_GetError());
 		ret = false;
 	}
-
 	return ret;
 }
 
@@ -63,7 +64,7 @@ bool j1Textures::CleanUp()
 SDL_Texture* const j1Textures::Load(const char* path)
 {
 	SDL_Texture* texture = NULL;
-	SDL_Surface* surface = IMG_Load(path);
+	SDL_Surface* surface = IMG_Load_RW(App->asset_manager->Load(path), 0);
 
 	if (surface == NULL)
 	{

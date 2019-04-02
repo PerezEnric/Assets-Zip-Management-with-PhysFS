@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Scene.h"
+#include "j1AssetManager.h"
 #include <string>
 
 #include "Brofiler/Brofiler.h"
@@ -33,9 +34,10 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-
-
-	return true;
+	bool ret = App->asset_manager->Exists("sprites/Entity.png");
+	
+	SpawnEntity("data/entity_data.xml", {0, 0});
+	return ret;
 }
 
 // Called each loop iteration
@@ -75,9 +77,6 @@ bool j1Scene::PostUpdate()
 
 	bool ret = true;
 
-	//if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	//	ret = false;
-
 	
 
 
@@ -91,3 +90,27 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
+
+bool j1Scene::SpawnEntity(std::string file, iPoint position)
+{
+	pugi::xml_document data_file;
+	char* buffer;
+	int file_size = App->asset_manager->LoadData(file.c_str(), &buffer);
+	pugi::xml_parse_result result = data_file.load_buffer(buffer, file_size);
+
+	pugi::xml_node attributes = data_file.child("data");
+	LoadImages(attributes);
+
+	return true;
+}
+
+bool j1Scene::LoadImages(pugi::xml_node attributes)
+{
+	bool ret = true;
+	pugi::xml_node node = attributes.child("texture");
+	std::string text = node.attribute("file").as_string();
+
+	SDL_Texture* tex = App->tex->Load(text.c_str());
+	return ret;
+}
+
