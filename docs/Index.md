@@ -5,4 +5,7 @@ One way to solve this problem is to compress all this data in a zip and loading 
 
 # PhysFS
 
-First of all, according to icculus.org definition: "PhysFS is a library to provide abstract acces to various archives".
+First of all, according to icculus.org definition: "PhysFS is a library to provide abstract access to various archives". It is a portable, flexible input/output file abstraction. It brings different benefits:
+* It is safe, which means that no file access is permited outside the specified directories.
+* It is flexible, so achives (specially zip files) can be used transparently as directory structures.
+
