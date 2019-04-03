@@ -56,19 +56,10 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 300 * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 300 * dt;
-
 	App->render->Blit(texture, 0, 0, &rect, false);
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		App->audio->PlayFx(1);
 
 	return true;
 }

@@ -59,6 +59,16 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+bool j1Audio::Start()
+{
+	pugi::xml_document fx_document;
+	char* buffer;
+	int size = App->asset_manager->LoadData("data/audio_data.xml", &buffer);
+	pugi::xml_parse_result result = fx_document.load_buffer(buffer, size);
+
+	return true;
+}
+
 // Called before quitting
 bool j1Audio::CleanUp()
 {
@@ -107,7 +117,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
-	music = Mix_LoadMUS(path);
+	music = Mix_LoadMUS_RW(App->asset_manager->Load(path), 1);
 
 	if (music == NULL)
 	{
@@ -154,7 +164,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 	if (!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	Mix_Chunk* chunk = Mix_LoadWAV_RW(App->asset_manager->Load(path), 1);
 
 	if (chunk == NULL)
 	{
