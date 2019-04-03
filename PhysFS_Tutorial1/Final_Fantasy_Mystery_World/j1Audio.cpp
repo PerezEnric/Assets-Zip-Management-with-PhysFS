@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 #include "j1Input.h"
+#include "j1AssetManager.h"
 #include "j1App.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"

@@ -36,7 +36,7 @@ bool j1Scene::Start()
 {
 	bool ret = App->asset_manager->Exists("sprites/Entity.png");
 	
-	SpawnEntity("data/entity_data.xml", {0, 0});
+	SpawnEntity("data/entity_data.xml");
 
 	return ret;
 }
@@ -94,7 +94,7 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-bool j1Scene::SpawnEntity(std::string file, iPoint position)
+bool j1Scene::SpawnEntity(std::string file)
 {
 	pugi::xml_document data_file;
 	char* buffer;
@@ -113,7 +113,7 @@ bool j1Scene::LoadImages(pugi::xml_node attributes)
 	pugi::xml_node node = attributes.child("texture");
 	std::string text = node.attribute("file").as_string();
 
-	LOG("LLALALA");
+	
 	texture = App->tex->Load(text.c_str());
 
 	return ret;

@@ -18,25 +18,14 @@ public:
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
+
 	uint LoadData(const char* file, char** buffer) const;
 
-	//// Called before quitting
-	//bool CleanUp();
+	bool CreatePath(const char* newDir, const char* mount_point = nullptr);
 
-	//// Utility functions
-	bool CreatePath(const char* zip_path, const char* mount_point = nullptr);
 	bool Exists(const char* file) const;
-	//bool IsDirectory(const char* file) const;
-	//const char* GetSaveDirectory() const
-	//{
-	//	return "";
-	//}
 
-	//// Open for Read/Write
-	//unsigned int Load(const char* file, char** buffer) const;
 	SDL_RWops* Load(const char* file) const;
-
-	//unsigned int Save(const char* file, const char* buffer, unsigned int size) const;
 
 private:
 

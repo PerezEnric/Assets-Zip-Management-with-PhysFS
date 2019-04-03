@@ -22,13 +22,13 @@ j1AssetManager::~j1AssetManager()
 	PHYSFS_deinit();
 }
 
-bool j1AssetManager::CreatePath(const char* zip_path, const char* mount_point)
+bool j1AssetManager::CreatePath(const char* newDir, const char* mount_point)
 {
 	bool ret = true;
-	PHYSFS_mount(zip_path, mount_point, 1);
+	PHYSFS_mount(newDir, mount_point, 1);
 
-	if (PHYSFS_mount(zip_path, mount_point, 1) == 0)
-		LOG("Error while adding a path or zip(%s): %s\n", zip_path, PHYSFS_getLastError());
+	if (PHYSFS_mount(newDir, mount_point, 1) == 0)
+		LOG("Error: %s\n", PHYSFS_getLastError());
 	else
 		ret = false;
 
@@ -46,11 +46,6 @@ bool j1AssetManager::Awake(pugi::xml_node& config)
 
 	PHYSFS_addToSearchPath("Assets.zip", 1);
 
-	for (pugi::xml_node path = config.child("path"); path; path = path.next_sibling("path"))
-	{
-		CreatePath(config.child_value());
-	}
-
 	return true;
 }
 
@@ -64,14 +59,14 @@ uint j1AssetManager::LoadData(const char* file, char** buffer) const
 	{
 		int file_lenght = PHYSFS_fileLength(data_file);
 		*buffer = new char[(uint)file_lenght];
-		PHYSFS_sint64 readed = PHYSFS_read(data_file, *buffer, 1, (PHYSFS_sint64)file_lenght);
+		uint readed = PHYSFS_read(data_file, *buffer, 1, (uint)file_lenght);
 		if (readed != file_lenght)
 		{
 			LOG("Error while reading from file %s: %s\n", file, PHYSFS_getLastError());
-			RELEASE_ARRAY(buffer);
+			RELEASE(buffer);
 		}
 		else
-			ret = (uint)readed;
+			ret = readed;
 
 		PHYSFS_close(data_file);
 	}
