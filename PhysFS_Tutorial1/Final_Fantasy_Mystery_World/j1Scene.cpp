@@ -37,6 +37,7 @@ bool j1Scene::Start()
 	bool ret = App->asset_manager->Exists("sprites/Entity.png");
 	
 	SpawnEntity("data/entity_data.xml", {0, 0});
+
 	return ret;
 }
 
@@ -66,6 +67,8 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 300 * dt;
+
+	App->render->Blit(texture, 0, 0, &rect, false);
 
 	return true;
 }
@@ -110,7 +113,9 @@ bool j1Scene::LoadImages(pugi::xml_node attributes)
 	pugi::xml_node node = attributes.child("texture");
 	std::string text = node.attribute("file").as_string();
 
-	SDL_Texture* tex = App->tex->Load(text.c_str());
+	LOG("LLALALA");
+	texture = App->tex->Load(text.c_str());
+
 	return ret;
 }
 

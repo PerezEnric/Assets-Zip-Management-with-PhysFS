@@ -43,6 +43,8 @@ public:
 
 private:
 	
+	SDL_Texture * texture = nullptr;
+	SDL_Rect rect = { 0, 0, 16, 31 };
 	
 };
 

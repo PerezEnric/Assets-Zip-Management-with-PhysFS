@@ -90,13 +90,11 @@ SDL_RWops* j1AssetManager::Load(const char* file) const
 	if (size > 0)
 	{
 		SDL_RWops* r = SDL_RWFromConstMem(buffer, size);
-		if (r != NULL)
-			r->close = close_sdl_rwops;
-
+		
 		return r;
 	}
 	else
-		return NULL;
+		return nullptr;
 }
 
 int close_sdl_rwops(SDL_RWops *rw)
