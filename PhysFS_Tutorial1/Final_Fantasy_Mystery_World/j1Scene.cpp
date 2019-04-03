@@ -34,7 +34,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	bool ret = App->asset_manager->Exists("sprites/Entity.png");
+	bool ret = App->asset_manager->Exists("audio/sfx/fx_sound.wav");
 	
 	SpawnEntity("data/entity_data.xml");
 

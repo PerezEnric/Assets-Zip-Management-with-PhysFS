@@ -63,8 +63,12 @@ bool j1Audio::Start()
 {
 	pugi::xml_document fx_document;
 	char* buffer;
-	int size = App->asset_manager->LoadData("data/audio_data.xml", &buffer);
+	int size = App->asset_manager->LoadData("data/fx_data.xml", &buffer);
 	pugi::xml_parse_result result = fx_document.load_buffer(buffer, size);
+
+	fx_node = fx_document.child("fx");
+
+	LoadFx(fx_node.attribute("file").as_string());
 
 	return true;
 }

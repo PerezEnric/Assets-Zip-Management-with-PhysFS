@@ -44,6 +44,8 @@ private:
 	
 	_Mix_Music*			music;
 	std::list<Mix_Chunk*>	fx;
+
+	pugi::xml_node fx_node;
 };
 
 #endif // __j1AUDIO_H__
