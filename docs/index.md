@@ -3,9 +3,16 @@
 Many times game developers find that when they make a build of a game it is too heavy due to assets folders and files.
 One way to solve this problem is to compress all this data in a compressed archive, like .zip, and loading all the files from that using a library called PhysFS. And this is what we are going to see below adding some SDL features like SDL_RWops.
 
+## Objective
+
+Our main goal is to have our release folder with only the .dll needed, the .exe and a .zip file where all the assets we will use for our game are inside. In this way, we will reduce the weight of our game.
+
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/IncorrectRelease.png">
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/CorrectRelease.png">
+
 ## PhysFS
 
-First of all, according to icculus.org definition: "PhysFS is a library to provide abstract access to various archives". It is a portable, flexible input/output file abstraction. It brings different benefits:
+First of all, we need to know what PhysFS is. According to icculus.org definition: "PhysFS is a library to provide abstract access to various archives". It is a portable, flexible input/output file abstraction. It brings different benefits:
 * It is safe, which means that no file access is permited outside the specified directories.
 * It is flexible, so achives (specially zip files) can be used transparently as directory structures.
 
