@@ -36,7 +36,9 @@ bool j1Scene::Start()
 {
 	bool ret = App->asset_manager->Exists("data/entity_data.xml");
 	
+	//Use this methods to get feedback
 	PrintImage();
+	App->audio->LoadFxFile();
 
 	return ret;
 }
@@ -56,9 +58,9 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
 
-	App->render->Blit(texture, 0, 0, &rect, false);
+	App->render->Blit(texture, 0, 0, &rect, false); //If everything is correct and image will be printed
 
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) // and a fx will be reproduced
 		App->audio->PlayFx(1);
 
 	return true;
@@ -90,7 +92,7 @@ bool j1Scene::PrintImage()
 	pugi::xml_document data_file;
 	char* buffer;
 	int file_size = App->asset_manager->LoadData("data/entity_data.xml", &buffer);
-	pugi::xml_parse_result result = data_file.load_buffer(buffer, file_size);
+	pugi::xml_parse_result result = data_file.load_buffer(buffer, file_size); //We load the buffer as an immutable one
 	RELEASE(buffer)
 
 	pugi::xml_node attributes = data_file.child("data").child("texture");

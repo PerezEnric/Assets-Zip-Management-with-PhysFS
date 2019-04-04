@@ -59,20 +59,12 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-bool j1Audio::Start()
-{
-	LoadFxFile();
-
-
-	return true;
-}
-
 void j1Audio::LoadFxFile()
 {
 	pugi::xml_document fx_document;
 	char* fx_buffer;
 	int fx_file_size = App->asset_manager->LoadData("data/fx_data.xml", &fx_buffer);
-	pugi::xml_parse_result result_fx = fx_document.load_buffer(fx_buffer, fx_file_size);
+	pugi::xml_parse_result result_fx = fx_document.load_buffer(fx_buffer, fx_file_size); //We load the buffer as an immutable one
 	RELEASE(fx_buffer);
 
 	pugi::xml_node fx_node = fx_document.child("data").child("fx");
@@ -128,6 +120,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
+	//We do not read from hard disk anymore so we need IMG_LoadMUS_RW() method to read from the memory buffer
 	music = Mix_LoadMUS_RW(App->asset_manager->Load(path), 1);
 
 	if (music == NULL)
@@ -175,6 +168,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 	if (!active)
 		return 0;
 
+	//We do not read from hard disk anymore so we need IMG_LoadWAV_RW() method to read from the memory buffer
 	Mix_Chunk* chunk = Mix_LoadWAV_RW(App->asset_manager->Load(path), 1);
 
 	if (chunk == NULL)

@@ -64,6 +64,7 @@ bool j1Textures::CleanUp()
 SDL_Texture* const j1Textures::Load(const char* path)
 {
 	SDL_Texture* texture = NULL;
+	//We do not read from hard disk anymore so we need IMG_Load_RW() method to read from the memory buffer
 	SDL_Surface* surface = IMG_Load_RW(App->asset_manager->Load(path), 1);
 
 	if (surface == NULL)
