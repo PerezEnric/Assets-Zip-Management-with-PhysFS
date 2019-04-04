@@ -7,8 +7,8 @@ One way to solve this problem is to compress all this data in a compressed archi
 
 Our main goal is to have our release folder with only the .dll needed, the .exe and a .zip file where all the assets we will use for our game are inside. In this way, we will reduce the weight of our game.
 
-<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/IncorrectRelease.png">
-<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/CorrectRelease.png">
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/IncorrectRelease.png?raw=true">
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/CorrectRelease.png"?raw=true>
 
 ## PhysFS
 
@@ -60,7 +60,27 @@ The function that will be used are the following ones:
 In order to start to understand the code, we have to take a look to the folder where all data files are provided, called _Assets.zip_.
 Here, we will find 3 folders called _audio_, _data_ and _sprites_ respectively.
 * _Audio_: folder that contains another folder called _sfx_ where a sample called _fx_sound.wav_ is inside.
-* _Data_: folder that contains 2 xml documents called _entity_data.xml_ and _fx_data.xml_. Both only contain the path where the image and the fx are in their respective folder. For now, it is enough to get to know how to load files from xml in zip files.
+* _Data_: folder that contains 2 xml documents called _entity_data.xml_ and _fx_data.xml_. Both only contain the path where the image and the fx are in their respective folder. For now, it is enough to get to know how to load files from xml in zip files. 
+```
+<data>
+
+<texture file = "sprites/Entity.png"/>
+
+</data>
+```
+
+```
+<data>
+
+<fx file="audio/sfx/fx_sound.wav"/>
+
+</data>
+```
+
 * _Sprites_: this folder only contains a png image.
 
-<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Assets_Folder_gif.gif">
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Assets_Folder_gif.gif?raw=true">
+
+### Code
+
+
