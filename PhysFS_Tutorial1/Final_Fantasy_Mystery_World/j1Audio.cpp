@@ -61,16 +61,23 @@ bool j1Audio::Awake(pugi::xml_node& config)
 
 bool j1Audio::Start()
 {
-	pugi::xml_document fx_document;
-	char* buffer;
-	int size = App->asset_manager->LoadData("data/fx_data.xml", &buffer);
-	pugi::xml_parse_result result = fx_document.load_buffer(buffer, size);
+	LoadFxFile();
 
-	pugi::xml_node node = fx_document.child("data").child("fx");
-
-	App->audio->LoadFx(node.attribute("file").as_string());
 
 	return true;
+}
+
+void j1Audio::LoadFxFile()
+{
+	pugi::xml_document fx_document;
+	char* fx_buffer;
+	int fx_file_size = App->asset_manager->LoadData("data/fx_data.xml", &fx_buffer);
+	pugi::xml_parse_result result_fx = fx_document.load_buffer(fx_buffer, fx_file_size);
+	RELEASE(fx_buffer);
+
+	pugi::xml_node fx_node = fx_document.child("data").child("fx");
+
+	LoadFx(fx_node.attribute("file").as_string());
 }
 
 // Called before quitting
@@ -181,6 +188,9 @@ unsigned int j1Audio::LoadFx(const char* path)
 	}
 
 	return ret;
+
+
+
 }
 
 // Play WAV

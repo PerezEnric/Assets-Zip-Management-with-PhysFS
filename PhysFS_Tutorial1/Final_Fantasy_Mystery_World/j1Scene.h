@@ -35,9 +35,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool SpawnEntity(std::string file);
+	bool PrintImage();
 
-	bool LoadImages(pugi::xml_node attributes);
+	bool LoadSceneMusic();
 
 public:
 

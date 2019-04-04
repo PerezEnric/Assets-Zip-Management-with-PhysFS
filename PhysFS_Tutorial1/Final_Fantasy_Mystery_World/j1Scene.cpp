@@ -34,9 +34,10 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	bool ret = App->asset_manager->Exists("audio/sfx/fx_sound.wav");
+	bool ret = App->asset_manager->Exists("audio/music/first_track.ogg");
 	
-	SpawnEntity("data/entity_data.xml");
+	PrintImage();
+	
 
 	return ret;
 }
@@ -60,6 +61,9 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		App->audio->PlayFx(1);
+	/*App->audio->LoadMusicFile();*/
+	LoadSceneMusic();
+	LOG("LALALA");
 
 	return true;
 }
@@ -85,28 +89,30 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-bool j1Scene::SpawnEntity(std::string file)
+bool j1Scene::PrintImage()
 {
 	pugi::xml_document data_file;
 	char* buffer;
-	int file_size = App->asset_manager->LoadData(file.c_str(), &buffer);
+	int file_size = App->asset_manager->LoadData("data/entity_data.xml", &buffer);
 	pugi::xml_parse_result result = data_file.load_buffer(buffer, file_size);
 
-	pugi::xml_node attributes = data_file.child("data");
-	LoadImages(attributes);
+	pugi::xml_node attributes = data_file.child("data").child("texture");
+	texture = App->tex->Load(attributes.attribute("file").as_string());
 
 	return true;
 }
 
-bool j1Scene::LoadImages(pugi::xml_node attributes)
+bool j1Scene::LoadSceneMusic()
 {
-	bool ret = true;
-	pugi::xml_node node = attributes.child("texture");
-	std::string text = node.attribute("file").as_string();
+	pugi::xml_document music_document;
+	char* music_buffer;
+	int music_file_size = App->asset_manager->LoadData("data/music_data.xml", &music_buffer);
+	pugi::xml_parse_result result_music = music_document.load_buffer(music_buffer, music_file_size);
+	RELEASE(music_buffer);
 
-	
-	texture = App->tex->Load(text.c_str());
+	pugi::xml_node music_node = music_document.child("data").child("track");
+	App->audio->PlayMusic(music_node.attribute("file").as_string());
 
-	return ret;
+	return true;
 }
 
