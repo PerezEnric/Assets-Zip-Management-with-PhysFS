@@ -83,4 +83,190 @@ Here, we will find 3 folders called _audio_, _data_ and _sprites_ respectively.
 
 ### Code
 
+#### Header
+
+First of all, we can see the different methods of the class called _j1AssetManager_.
+```
+class j1AssetManager : public j1Module
+{
+public:
+
+j1AssetManager();
+
+virtual ~j1AssetManager();
+
+bool Awake(pugi::xml_node&);
+
+uint LoadData(const char* file, char** buffer) const;
+
+bool CreatePath(const char* newDir, const char* mount_point = nullptr);
+
+bool Exists(const char* file) const;
+
+SDL_RWops* Load(const char* file) const;
+};
+```
+To begin with, let's see the constructor and destructor. Their main role here is to initialize and close the PhysFS library respectively.
+```
+j1AssetManager();
+
+virtual ~j1AssetManager();
+```
+Next, we have Awake(pugi::xml_node&). As well as it is called before render is available, we will call the funtion that lets us to add a search path from where we will find all the data.
+
+```
+bool Awake(pugi::xml_node&);
+```
+Then, we have LoadData(const char* file, char** buffer) const. This function is one of the most important due to lets us to read the file and and allocate the needed bytes to a buffer. This function returns the size of the lenght read that we will use later to load the files from the xml.
+```
+uint LoadData(const char* file, char** buffer) const;
+```
+Now, we see the function CreatePath(const char* newDir, const char* mount_point = nullptr), where basically we use the function PhysFS_mount() in order to mount an archive file into the virtual filesystem created by init. We call it in the constructor.
+
+```
+bool j1AssetManager::CreatePath(const char* newDir, const char* mount_point)
+{
+	bool ret = true;
+	PHYSFS_mount(newDir, mount_point, 1); //Here we mount an archive file into the virtual filesystem created by init
+
+	if (PHYSFS_mount(newDir, mount_point, 1) == 0)
+		LOG("Error: %s\n", PHYSFS_getLastError());
+	else
+		ret = false;
+
+	return ret;
+}
+```
+We also have the function Exists(const char* file) const, which only returns true if the file exists.
+```
+bool j1AssetManager::Exists(const char* file) const
+{
+	return PHYSFS_exists(file);
+}
+```
+Finally, we have Load(const char* file) const, which lets us to load images/fx/music from a memory buffer with SDL. This method with be called in IMG_Load_RW(), Mix_LoadWAV_RW() and Mix_LoadMUS_RW().
+```
+SDL_RWops* Load(const char* file) const;
+```
+## TODOs and Solutions
+### TODO 1: Initialize and close the PhysFS library
+What you have to do is to use the methods mentioned before to initialize and close the library in hteir respective place
+
+#### Solution
+
+```
+j1AssetManager::j1AssetManager() : j1Module()
+{
+	name = ("asset_manager");
+
+	PHYSFS_init(nullptr);
+
+	//This works as a default path
+	CreatePath(".");
+}
+
+// Destructor
+j1AssetManager::~j1AssetManager()
+{
+	PHYSFS_deinit();
+}
+```
+
+### TODO 2: add an archive to the search path
+Here, you have to call another function in order to search the path where the data is
+
+#### Solution:
+
+```
+bool j1AssetManager::Awake(pugi::xml_node& config)
+{
+	LOG("Loading Asset Manager");
+  
+	PHYSFS_addToSearchPath("Assets.zip", 1);
+
+	return true;
+}
+```
+
+### TODO 3: open and read the file we want to
+* You will need to use the correct function to open and read file
+* Make sure that the file is not nullptr
+*	Also allocate memory in a buffer of the size of the file
+#### Solution
+```
+uint j1AssetManager::LoadData(const char* file, char** buffer) const
+{
+	uint ret = 0;
+
+	PHYSFS_file* data_file = PHYSFS_openRead(file); //We open and read the file we want to 
+
+	if (data_file != nullptr)
+	{
+		int file_lenght = PHYSFS_fileLength(data_file); //We get the file size to find out how many bytes you need to allocate for the file.
+		*buffer = new char[(uint)file_lenght]; //We allocate memory in a buffer of the size of the file
+		
+	}
+	else
+		LOG("Error while opening file %s: %s\n", file, PHYSFS_getLastError());
+
+	return ret;
+}
+```
+
+### TODO 4: read data from a PhysFS filehandle
+* Make sure that the lenght of the data readed is the same as the lenght of the file
+* If it is not, we delete the buffer
+* If they are the same, we return the lenght of the readed data
+* Finally, we close the handle used
+
+#### Solution
+```
+uint j1AssetManager::LoadData(const char* file, char** buffer) const
+{
+	uint ret = 0;
+
+	PHYSFS_file* data_file = PHYSFS_openRead(file); 
+
+	if (data_file != nullptr)
+	{
+		int file_lenght = PHYSFS_fileLength(data_file); 
+		*buffer = new char[(uint)file_lenght];
+		uint readed = PHYSFS_read(data_file, *buffer, 1, (uint)file_lenght); 
+		if (readed != file_lenght)
+		{
+			LOG("Error while reading from file %s: %s\n", file, PHYSFS_getLastError());
+			RELEASE(buffer);
+		}
+		else
+			ret = readed;
+
+		PHYSFS_close(data_file);
+	}
+	else
+		LOG("Error while opening file %s: %s\n", file, PHYSFS_getLastError());
+
+	return ret;
+}
+```
+### TODO 5: replace the functions into the new ones
+* Now we read from a memory buffer
+* Use the functions explained earlier in relation to SDL_RWops
+* Remember that you need to use different methods from the old ones
+
+#### Solution
+```
+music = Mix_LoadMUS_RW(App->asset_manager->Load(path), 1);
+```
+```
+Mix_Chunk* chunk = Mix_LoadWAV_RW(App->asset_manager->Load(path), 1);
+```
+```
+SDL_Surface* surface = IMG_Load_RW(App->asset_manager->Load(path), 1);
+```
+### TODO 6: uncomment he methods
+* Basically this one in to get feedback if the library and methods are well implemented
+
+#### Solution
+If everything went well, you should see the following image and play a fx when you press F.
+
 
