@@ -2,10 +2,10 @@
 #include "j1App.h"
 #include "p2Log.h"
 #include "j1AssetManager.h"
-#include "PhysFS2/include/physfs.h"
+#include "PhysFS/include/physfs.h"
 #include "SDL/include/SDL.h"
 
-#pragma comment( lib, "PhysFS2/lib/physfs.lib" )
+#pragma comment( lib, "PhysFS/lib/physfs.lib" )
 
 j1AssetManager::j1AssetManager() : j1Module()
 {
