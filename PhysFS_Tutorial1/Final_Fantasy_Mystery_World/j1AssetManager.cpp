@@ -35,11 +35,6 @@ bool j1AssetManager::CreatePath(const char* newDir, const char* mount_point)
 	return ret;
 }
 
-bool j1AssetManager::Exists(const char * file) const
-{
-	return PHYSFS_exists(file);
-}
-
 bool j1AssetManager::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Asset Manager");
@@ -47,6 +42,11 @@ bool j1AssetManager::Awake(pugi::xml_node& config)
 	PHYSFS_addToSearchPath("Assets.zip", 1);
 
 	return true;
+}
+
+bool j1AssetManager::Exists(const char* file) const
+{
+	return PHYSFS_exists(file);
 }
 
 uint j1AssetManager::LoadData(const char* file, char** buffer) const
@@ -76,7 +76,7 @@ uint j1AssetManager::LoadData(const char* file, char** buffer) const
 	return ret;
 }
 
-// And this is how you load an image from a memory buffer with SDL
+// And this is how you load an image/fx/music from a memory buffer with SDL
 SDL_RWops* j1AssetManager::Load(const char* file) const
 {
 	char* buffer;
@@ -91,11 +91,3 @@ SDL_RWops* j1AssetManager::Load(const char* file) const
 	else
 		return nullptr;
 }
-
-int close_sdl_rwops(SDL_RWops *rw)
-{
-	RELEASE_ARRAY(rw->hidden.mem.base);
-	SDL_FreeRW(rw);
-	return 0;
-}
-

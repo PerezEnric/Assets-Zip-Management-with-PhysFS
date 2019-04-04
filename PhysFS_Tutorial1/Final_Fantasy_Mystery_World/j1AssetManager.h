@@ -5,8 +5,6 @@
 
 struct SDL_RWops;
 
-int close_sdl_rwops(SDL_RWops *rw);
-
 class j1AssetManager : public j1Module
 {
 public:

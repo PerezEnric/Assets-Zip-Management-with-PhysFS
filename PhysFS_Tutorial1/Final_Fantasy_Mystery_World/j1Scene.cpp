@@ -34,11 +34,10 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	bool ret = App->asset_manager->Exists("audio/music/first_track.ogg");
+	bool ret = App->asset_manager->Exists("data/music_data.xml");
 	
 	PrintImage();
-	
-
+	App->audio->PlayMusic("data/music_data.xml");
 	return ret;
 }
 
@@ -61,9 +60,10 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		App->audio->PlayFx(1);
-	/*App->audio->LoadMusicFile();*/
+
+
+
 	LoadSceneMusic();
-	LOG("LALALA");
 
 	return true;
 }
@@ -95,6 +95,7 @@ bool j1Scene::PrintImage()
 	char* buffer;
 	int file_size = App->asset_manager->LoadData("data/entity_data.xml", &buffer);
 	pugi::xml_parse_result result = data_file.load_buffer(buffer, file_size);
+	RELEASE(buffer)
 
 	pugi::xml_node attributes = data_file.child("data").child("texture");
 	texture = App->tex->Load(attributes.attribute("file").as_string());
