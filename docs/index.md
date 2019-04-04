@@ -42,7 +42,7 @@ According to SDL Wiki SDL_RWops is an abstraction over input/output. It provides
 
 The function that will be used are the follwuing ones:
 
-* **IMG_Load_RW**(SDL_RWops* _src_, int _freesrc_): This can load all supported image formats, except TGA (raster images and bitmaps file format). The image is load from _src_, if we want that _src_ is automatically freed or closed we have to add an non-zero value in _freesrc_. 
-* **Mix_LoadWAV_RW**(SDL_RWops* _src_, int _freesrc_): This can load WAVE, AIFF, RIFF, OGG, and VOC formats. The sample is loaded from the _src_ pointer. As the previous function, we can add a non-zero value in _freesrc_ to close or free automatically _src_.
-* **Mix_LoadMUS_RW**(SDL_RWops* _src_, int _freesrc_):  This can load WAVE, MOD, MIDI, OGG, MP3, FLAC. Again, as fucntions mentioned before, _src_ is the pointer that the sample is loaded from this and _freesrc_ with a non-zero value is to free or close automatically.
+* **IMG_Load_RW**(SDL_RWops* _src_, int _freesrc_): This can load images from memory buffer. The image is load from _src_, if we want that _src_ is automatically freed or closed we have to add an non-zero value in _freesrc_. 
+* **Mix_LoadWAV_RW**(SDL_RWops* _src_, int _freesrc_): This can load WAVE, AIFF, RIFF, OGG, and VOC formats from memory buffer. The sample is loaded from the _src_ pointer. As the previous function, we can add a non-zero value in _freesrc_ to close or free automatically _src_.
+* **Mix_LoadMUS_RW**(SDL_RWops* _src_, int _freesrc_):  This can load WAVE, MOD, MIDI, OGG, MP3, FLAC from memory buffer. Again, as functions mentioned before, _src_ is the pointer that the sample is loaded from this and _freesrc_ with a non-zero value is to free or close automatically.
 * **SDL_RWFromConstMem**(const void* _mem_, int _size_): this prepares a read-only buffer memory buffer for use with SDL_RWops. _mem_ is a pointer to a read-only buffer, _size_ the buffer size in bytes.
