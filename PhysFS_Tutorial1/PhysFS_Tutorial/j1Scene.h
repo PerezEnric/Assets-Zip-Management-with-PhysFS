@@ -37,8 +37,6 @@ public:
 
 	bool PrintImage();
 
-	bool LoadSceneMusic();
-
 public:
 
 private:
