@@ -8,7 +8,7 @@ One way to solve this problem is to compress all this data in a compressed archi
 Our main goal is to have our release folder with only the .dll needed, the .exe and a .zip file where all the assets we will use for our game are inside. In this way, we will reduce the weight of our game.
 
 <img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/IncorrectRelease.png?raw=true">
-<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/CorrectRelease.png"?raw=true>
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/CorrectRelease.png?raw=true">
 
 ## PhysFS
 
