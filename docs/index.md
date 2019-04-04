@@ -43,13 +43,24 @@ Let's start by introducing a sort of functions in order to set up the library:
 
 ## SDL_RWops
 
-According to SDL Wiki SDL_RWops is an abstraction over input/output. It provides interfaces to read, write and seek data in a stream, without the caller needing to know where the data is coming from.
+According to SDL Wiki, SDL_RWops is an abstraction over input/output. It provides interfaces to read, write and seek data in a stream, without the caller needing to know where the data is coming from.
 
 ### SDL_RWops functions
 
-The function that will be used are the follwuing ones:
+The function that will be used are the following ones:
 
 * **IMG_Load_RW**(SDL_RWops* _src_, int _freesrc_): This can load images from memory buffer. The image is load from _src_, if we want that _src_ is automatically freed or closed we have to add an non-zero value in _freesrc_. 
 * **Mix_LoadWAV_RW**(SDL_RWops* _src_, int _freesrc_): This can load WAVE, AIFF, RIFF, OGG, and VOC formats from memory buffer. The sample is loaded from the _src_ pointer. As the previous function, we can add a non-zero value in _freesrc_ to close or free automatically _src_.
 * **Mix_LoadMUS_RW**(SDL_RWops* _src_, int _freesrc_):  This can load WAVE, MOD, MIDI, OGG, MP3, FLAC from memory buffer. Again, as functions mentioned before, _src_ is the pointer that the sample is loaded from this and _freesrc_ with a non-zero value is to free or close automatically.
 * **SDL_RWFromConstMem**(const void* _mem_, int _size_): this prepares a read-only buffer memory buffer for use with SDL_RWops. _mem_ is a pointer to a read-only buffer, _size_ the buffer size in bytes.
+
+## Code Structure
+
+### Assets ZIP
+In order to start to understand the code, we have to take a look to the folder where all data files are provided, called _Assets.zip_.
+Here, we will find 3 folders called _audio_, _data_ and _sprites_ respectively.
+* _Audio_: folder that contains another folder called _sfx_ where a sample called _fx_sound.wav_ is inside.
+* _Data_: folder that contains 2 xml documents called _entity_data.xml_ and _fx_data.xml_. Both only contain the path where the image and the fx are in their respective folder. For now, it is enough to get to know how to load files from xml in zip files.
+* _Sprites_: this folder only contains a png image.
+
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Assets_Folder_gif.gif">
