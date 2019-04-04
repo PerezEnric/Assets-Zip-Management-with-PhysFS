@@ -34,7 +34,8 @@ Let's start by introducing a sort of functions in order to set up the library:
 
 * **PHYSFS_init**(): initializes the library. It must be called before any other PhysFS function.
 * **PHYSFS_deinit**(): closes any files opened via PhysFS, blanks the search/write paths and frees the memory.
-* PHYSFS_mount(const char* newDir, const char* mountPoint, int appendToPath ): add an archive or directory to the search path.
+* **PHYSFS_mount**(const char* _newDir_, const char* _mountPoint_, int _appendToPath_ ): add an archive or directory to the search path. _newDir_ directory or archive to add to the path, _mountPoint_ is the location that this archive will be "mounted", NULL or "" is equivalent to "/". _AppendToPath_ may be a non-zero value to append to search path.
+* **PHYSFS_addToSearchPath**(const char* _newDir_, int _appendToPath_): add an archive or directory to the search path. this works in the same way as PhysFS_mount().
 * **PHYSFS_openRead**(const char* _filename_): opens a file for reading, in platform-independent notation. _Filename_ is the file we want to open.
 * **PHYSFS_fileLength**(PHYSFS_file* _handle_): gets the total length of a file in bytes. _Handle_ is the handle returned from PHYSFS_openRead().
 * **PHYSFS_Read**(PHYSFS_File* _handle_, void* _buffer_, PHYSFS_uint32 _objSize_, PHYSFS_uint32 _objCount_): reads data from a PhysFS filehandle. _Handle_ is the handle returned from PHYSFS_openRead(), _buffer_ is where data info is stored, _objSize_ is size in bytes of objects readed from handle and _objCount_ number of objects to read from handle.
@@ -270,3 +271,17 @@ SDL_Surface* surface = IMG_Load_RW(App->asset_manager->Load(path), 1);
 If everything went well, you should see the following image and play a fx when you press F.
 
 
+## Links to Resources
+* [https://icculus.org/physfs/](https://icculus.org/physfs/)
+* [https://icculus.org/physfs/physfstut.txt](https://icculus.org/physfs/physfstut.txt)
+* [https://gamedev.stackexchange.com/questions/37820/how-do-you-set-up-physfs-for-use-in-a-game](https://gamedev.stackexchange.com/questions/37820/how-do-you-set-up-physfs-for-use-in-a-game)
+* [https://gregfmartin.com/2017/01/02/physicsfsphysfs-basic-tutorial/](https://gregfmartin.com/2017/01/02/physicsfsphysfs-basic-tutorial/)
+* [http://sdl.beuc.net/sdl.wiki/SDL_RWops](http://sdl.beuc.net/sdl.wiki/SDL_RWops)
+* [https://icculus.org/physfs/docs/html/physfs_8h.html](https://icculus.org/physfs/docs/html/physfs_8h.html)
+* [https://icculus.org/physfs/docs/html/physfs_8h.html#a0956d926822291a23ee540c2ffefa1af](https://icculus.org/physfs/docs/html/physfs_8h.html#a0956d926822291a23ee540c2ffefa1af)
+
+## Author
+This research has been bone by Enric Pérez Rifà.
+
+Github: [PerezEnric](https://github.com/PerezEnric)
+Email: enriic19@gmail.com
