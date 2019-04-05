@@ -69,21 +69,10 @@ In order to start to understand the code, we have to take a look to the folder w
 Here, we will find 3 folders called _audio_, _data_ and _sprites_ respectively.
 * _Audio_: folder that contains another folder called _sfx_ where a sample called _fx_sound.wav_ is inside.
 * _Data_: folder that contains 2 xml documents called _entity_data.xml_ and _fx_data.xml_. Both only contain the path where the image and the fx are in their respective folder. For now, it is enough to get to know how to load files from xml in zip files. 
-```
-<data>
 
-<texture file = "sprites/Entity.png"/>
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Entity_Data_xml_img.JPG?raw=true">
 
-</data>
-```
-
-```
-<data>
-
-<fx file="audio/sfx/fx_sound.wav"/>
-
-</data>
-```
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Fx_Data_xml_img.JPG?raw=true">
 
 * _Sprites_: this folder only contains a png image.
 
@@ -94,41 +83,28 @@ Here, we will find 3 folders called _audio_, _data_ and _sprites_ respectively.
 #### Header
 
 First of all, we can see the different methods of the class called _j1AssetManager_.
-```
-class j1AssetManager : public j1Module
-{
-public:
 
-j1AssetManager();
-
-virtual ~j1AssetManager();
-
-bool Awake(pugi::xml_node&);
-
-uint LoadData(const char* file, char** buffer) const;
-
-bool CreatePath(const char* newDir, const char* mount_point = nullptr);
-
-bool Exists(const char* file) const;
-
-SDL_RWops* Load(const char* file) const;
-};
-```
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/HeaderCapture.JPG?raw=true">)
 To begin with, let's see the constructor and destructor. Their main role here is to initialize and close the PhysFS library respectively.
+
 ```
 j1AssetManager();
 
 virtual ~j1AssetManager();
 ```
+
 Next, we have Awake(pugi::xml_node&). As well as it is called before render is available, we will call the funtion that lets us to add a search path from where we will find all the data.
 
 ```
 bool Awake(pugi::xml_node&);
 ```
+
 Then, we have LoadData(const char* file, char** buffer) const. This function is one of the most important due to lets us to read the file and and allocate the needed bytes to a buffer. This function returns the size of the lenght read that we will use later to load the files from the xml.
+
 ```
 uint LoadData(const char* file, char** buffer) const;
 ```
+
 Now, we see the function CreatePath(const char* newDir, const char* mount_point = nullptr), where basically we use the function PhysFS_mount() in order to mount an archive file into the virtual filesystem created by init. We call it in the constructor.
 
 ```
@@ -145,17 +121,22 @@ bool j1AssetManager::CreatePath(const char* newDir, const char* mount_point)
 	return ret;
 }
 ```
+
 We also have the function Exists(const char* file) const, which only returns true if the file exists.
+
 ```
 bool j1AssetManager::Exists(const char* file) const
 {
 	return PHYSFS_exists(file);
 }
 ```
+
 Finally, we have Load(const char* file) const, which lets us to load images/fx/music from a memory buffer with SDL. This method with be called in IMG_Load_RW(), Mix_LoadWAV_RW() and Mix_LoadMUS_RW().
+
 ```
 SDL_RWops* Load(const char* file) const;
 ```
+
 ## TODOs and Solutions
 ### TODO 1: Initialize and close the PhysFS library
 What you have to do is to use the methods mentioned before to initialize and close the library in hteir respective place
@@ -208,6 +189,7 @@ bool j1AssetManager::Awake(pugi::xml_node& config)
 * Finally, we close the handle used
 
 #### Solution TODO 3 and 4
+
 ```
 uint j1AssetManager::LoadData(const char* file, char** buffer) const
 {
@@ -236,21 +218,26 @@ uint j1AssetManager::LoadData(const char* file, char** buffer) const
 	return ret;
 }
 ```
+
 ### TODO 5: replace the functions into the new ones
 * Now we read from a memory buffer
 * Use the functions explained earlier in relation to SDL_RWops
 * Remember that you need to use different methods from the old ones
 
 #### Solution
+
 ```
 music = Mix_LoadMUS_RW(App->asset_manager->Load(path), 1);
 ```
+
 ```
 Mix_Chunk* chunk = Mix_LoadWAV_RW(App->asset_manager->Load(path), 1);
 ```
+
 ```
 SDL_Surface* surface = IMG_Load_RW(App->asset_manager->Load(path), 1);
 ```
+
 ### TODO 6: uncomment he methods
 * Basically this one in to get feedback if the library and methods are well implemented
 
