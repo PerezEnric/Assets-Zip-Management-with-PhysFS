@@ -175,7 +175,7 @@ SDL_RWops* Load(const char* file) const;
 
 ## TODOs and Solutions
 ### TODO 1: Initialize and close the PhysFS library
-What you have to do is to use the methods mentioned before to initialize and close the library in hteir respective place
+What you have to do is to use the methods mentioned before to initialize and close the library in their respective place
 
 #### Solution
 
