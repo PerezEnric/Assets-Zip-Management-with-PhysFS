@@ -6,6 +6,7 @@
 * [Solution](https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/releases/tag/Solutionv1.0)
 * [Repository](https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS)
 * [Presentation](https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Presentation_PhysFS.pptx)
+* [Download the library](https://github.com/FredericHamel/physfs)
 
 Many times game developers find that when they make a build of a game it is too heavy due to assets folders and files.
 One way to solve this problem is to compress all this data in a compressed archive, like .zip, and loading all the files from that using a library called PhysFS. And this is what we are going to see below adding some SDL features like SDL_RWops.
