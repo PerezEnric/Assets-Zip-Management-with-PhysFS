@@ -70,9 +70,21 @@ Here, we will find 3 folders called _audio_, _data_ and _sprites_ respectively.
 * _Audio_: folder that contains another folder called _sfx_ where a sample called _fx_sound.wav_ is inside.
 * _Data_: folder that contains 2 xml documents called _entity_data.xml_ and _fx_data.xml_. Both only contain the path where the image and the fx are in their respective folder. For now, it is enough to get to know how to load files from xml in zip files. 
 
-<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Entity_Data_xml_img.JPG?raw=true">
+```
+<data>
 
-<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Fx_Data_xml_img.JPG?raw=true">
+<texture file = "sprites/Entity.png"/>
+
+</data>
+```
+
+```
+<data>
+  
+<fx file="audio/sfx/fx_sound.wav"/>
+  
+</data>
+```
 
 * _Sprites_: this folder only contains a png image.
 
@@ -84,7 +96,31 @@ Here, we will find 3 folders called _audio_, _data_ and _sprites_ respectively.
 
 First of all, we can see the different methods of the class called _j1AssetManager_.
 
-<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/HeaderCapture.JPG?raw=true">)
+```
+class j1AssetManager : public j1Module
+{
+public:
+
+	j1AssetManager();
+
+	// Destructor
+	virtual ~j1AssetManager();
+
+	// Called before render is available
+	bool Awake(pugi::xml_node&);
+
+	uint LoadData(const char* file, char** buffer) const;
+
+	bool CreatePath(const char* newDir, const char* mount_point = nullptr);
+
+	bool Exists(const char* file) const;
+
+	SDL_RWops* Load(const char* file) const;
+
+};
+```
+
+
 To begin with, let's see the constructor and destructor. Their main role here is to initialize and close the PhysFS library respectively.
 
 ```
