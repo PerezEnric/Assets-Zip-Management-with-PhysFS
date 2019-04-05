@@ -199,27 +199,7 @@ bool j1AssetManager::Awake(pugi::xml_node& config)
 ### TODO 3: open and read the file we want to
 * You will need to use the correct function to open and read file
 * Make sure that the file is not nullptr
-*	Also allocate memory in a buffer of the size of the file
-#### Solution
-```
-uint j1AssetManager::LoadData(const char* file, char** buffer) const
-{
-	uint ret = 0;
-
-	PHYSFS_file* data_file = PHYSFS_openRead(file); //We open and read the file we want to 
-
-	if (data_file != nullptr)
-	{
-		int file_lenght = PHYSFS_fileLength(data_file); //We get the file size to find out how many bytes you need to allocate for the file.
-		*buffer = new char[(uint)file_lenght]; //We allocate memory in a buffer of the size of the file
-		
-	}
-	else
-		LOG("Error while opening file %s: %s\n", file, PHYSFS_getLastError());
-
-	return ret;
-}
-```
+* Also allocate memory in a buffer of the size of the file
 
 ### TODO 4: read data from a PhysFS filehandle
 * Make sure that the lenght of the data readed is the same as the lenght of the file
@@ -227,7 +207,7 @@ uint j1AssetManager::LoadData(const char* file, char** buffer) const
 * If they are the same, we return the lenght of the readed data
 * Finally, we close the handle used
 
-#### Solution
+#### Solution TODO 3 and 4
 ```
 uint j1AssetManager::LoadData(const char* file, char** buffer) const
 {
