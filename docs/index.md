@@ -6,6 +6,7 @@
 * [Solution](https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/releases/tag/Solutionv1.0)
 * [Repository](https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS)
 * [Presentation](https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/Presentation_PhysFS.pptx)
+* [Download the library](https://github.com/FredericHamel/physfs)
 
 Many times game developers find that when they make a build of a game it is too heavy due to assets folders and files.
 One way to solve this problem is to compress all this data in a compressed archive, like .zip, and loading all the files from that using a library called PhysFS. And this is what we are going to see below adding some SDL features like SDL_RWops.
@@ -289,6 +290,7 @@ If everything went well, you should see the following image and play a fx when y
 * [http://sdl.beuc.net/sdl.wiki/SDL_RWops](http://sdl.beuc.net/sdl.wiki/SDL_RWops)
 * [https://icculus.org/physfs/docs/html/physfs_8h.html](https://icculus.org/physfs/docs/html/physfs_8h.html)
 * [https://icculus.org/physfs/docs/html/physfs_8h.html#a0956d926822291a23ee540c2ffefa1af](https://icculus.org/physfs/docs/html/physfs_8h.html#a0956d926822291a23ee540c2ffefa1af)
+* [https://github.com/carcasanchez/ALinkBetweenAges](https://github.com/carcasanchez/ALinkBetweenAges)
 
 ## Author
 This research has been bone by Enric Pérez Rifà.
