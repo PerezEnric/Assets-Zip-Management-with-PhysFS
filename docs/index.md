@@ -269,7 +269,7 @@ SDL_Surface* surface = IMG_Load_RW(App->asset_manager->Load(path), 1);
 
 #### Solution
 If everything went well, you should see the following image and play a fx when you press F.
-
+<img src="https://github.com/PerezEnric/Assets-Zip-Management-with-PhysFS/blob/master/docs/WebsiteImages/FeedBack_Capture.JPG?raw=true">
 
 ## Links to Resources
 * [https://icculus.org/physfs/](https://icculus.org/physfs/)
